@@ -17,21 +17,23 @@ Bạn cần xây dựng một research assistant có thể nhận câu hỏi dà
 
 ## Milestone 1: Baseline
 
-File gợi ý:
+File đã hoàn thiện:
 
 - `src/multi_agent_research_lab/cli.py`
 - `src/multi_agent_research_lab/services/llm_client.py`
 
-TODO(student): thay baseline placeholder bằng một call LLM thật.
+Baseline hiện dùng `SearchClient` với corpus offline và `LLMClient` có fallback deterministic. Nếu có
+`OPENAI_API_KEY`, client sẽ gọi OpenAI qua optional dependency.
 
 ## Milestone 2: Supervisor
 
-File gợi ý:
+File đã hoàn thiện:
 
 - `src/multi_agent_research_lab/agents/supervisor.py`
 - `src/multi_agent_research_lab/graph/workflow.py`
 
-TODO(student): implement routing policy.
+Supervisor chọn route theo artifact còn thiếu: `researcher`, `analyst`, `writer`, rồi `done`.
+Workflow cũng có guardrail `MAX_ITERATIONS` và `TIMEOUT_SECONDS`.
 
 Gợi ý câu hỏi thiết kế:
 
@@ -43,13 +45,13 @@ Gợi ý câu hỏi thiết kế:
 
 ## Milestone 3: Worker agents
 
-File gợi ý:
+File đã hoàn thiện:
 
 - `src/multi_agent_research_lab/agents/researcher.py`
 - `src/multi_agent_research_lab/agents/analyst.py`
 - `src/multi_agent_research_lab/agents/writer.py`
 
-TODO(student): implement từng worker.
+Researcher thu thập nguồn offline, Analyst tạo insight có citation, Writer tổng hợp câu trả lời cuối.
 
 ## Milestone 4: Trace và benchmark
 

@@ -4,10 +4,7 @@ from multi_agent_research_lab.core.schemas import BenchmarkMetrics
 
 
 def render_markdown_report(metrics: list[BenchmarkMetrics]) -> str:
-    """Render benchmark metrics to markdown.
-
-    TODO(student): Add richer analysis, examples, screenshots, and trace links.
-    """
+    """Render benchmark metrics and a short interpretation to markdown."""
 
     lines = [
         "# Benchmark Report",
@@ -24,4 +21,19 @@ def render_markdown_report(metrics: list[BenchmarkMetrics]) -> str:
             f"| {item.run_name} | {item.latency_seconds:.2f} | {cost} | {quality} "
             f"| {citation} | {failure} | {item.notes} |"
         )
+
+    lines.extend(
+        [
+            "",
+            "## Failure Mode and Fix",
+            "",
+            "A common failure mode is unsupported synthesis: downstream agents may repeat a "
+            "research note without checking whether the cited source supports the claim. This "
+            "implementation reduces that risk by keeping source IDs in shared state, requiring "
+            "the writer prompt to use those IDs, and computing citation coverage in the benchmark.",
+            "",
+            "Trace evidence is stored in each `ResearchState.trace` entry. For a hosted tracing "
+            "provider, wire the same span names to LangSmith, Langfuse, or OpenTelemetry.",
+        ]
+    )
     return "\n".join(lines) + "\n"
